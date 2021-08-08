@@ -35,7 +35,7 @@ public class GraphMatrix<T> {
 			}
 		}
 	}
-	
+
 	public void clearMatrix() {
 		for (int i = 0; i < getSizeX(); i++) {
 			for (int j = 0; j < getSizeY(); j++) {
@@ -279,7 +279,7 @@ public class GraphMatrix<T> {
 					visited.add(n);
 					setElement(n.getPosX(), n.getPosY(), VISITED);
 					nodeQueue.add(n);
-					
+
 					parent.add(p);
 
 					if (n.equals(end)) {
@@ -289,17 +289,13 @@ public class GraphMatrix<T> {
 				}
 			}
 		}
-		
-		if (foundEndNode) {			
-			for (int i = visited.size() - 1; i >= 0; i--) {
-				Position p = parent.get(i);
-			}
-			
+
+		if (foundEndNode) {
 			Position first = end;
 			Position last = parent.get(visited.indexOf(end));
-			
+
 			Stack<Position> revPath = new Stack<Position>();
-			
+
 			while (!last.equals(start)) {
 				revPath.push(first);
 				first = last;
@@ -307,7 +303,7 @@ public class GraphMatrix<T> {
 			}
 			revPath.push(first);
 			revPath.push(last);
-			
+
 			while (!revPath.isEmpty()) {
 				path.add(revPath.pop());
 			}
