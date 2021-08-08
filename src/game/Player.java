@@ -15,8 +15,8 @@ public class Player {
 	public Player() {
 		gridX = 5;
 		gridY = 5;
-		x = gridX * 50 + 6;
-		y = gridY * 50 + 6;
+		x = gridX * 25 + 6;
+		y = gridY * 25 + 6;
 	}
 	
 	public int getGridX() {
@@ -40,10 +40,6 @@ public class Player {
 	public void draw(Graphics g) {
 		g.setColor(Color.BLUE);
 		g.fillRect(x, y, 14, 14);
-	}
-	
-	public void update() {
-		
 	}
 	
 }

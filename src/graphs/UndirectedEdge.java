@@ -8,11 +8,11 @@ public class UndirectedEdge<NodeT> {
 		this.w = w;
 	}
 	
-	NodeT getV() {
+	public NodeT getV() {
 		return v;
 	}
 
-	NodeT getW() {
+	public NodeT getW() {
 		return w;
 	}
 	
