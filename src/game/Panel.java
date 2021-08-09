@@ -35,7 +35,7 @@ public class Panel extends JPanel implements Runnable, MouseListener, MouseMotio
 
 	final int playerMoves = 5;
 
-	final int enemyMoves = 3;
+	private int enemyMoves = 3;
 
 	int rounds = 0;
 
@@ -141,6 +141,10 @@ public class Panel extends JPanel implements Runnable, MouseListener, MouseMotio
 			encontraCaminhoInimigos();
 			
 			rounds++;
+			if (rounds % 10 == 0 && enemyMoves <= playerMoves)
+				enemyMoves++;
+				for(Enemy enemy : enemies)
+					enemy.setMoves(enemyMoves);
 		}
 		
 		for (Enemy enemy : enemies) {

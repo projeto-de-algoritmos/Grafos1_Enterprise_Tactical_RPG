@@ -50,6 +50,10 @@ public class Player {
 		this.gridY = gridY;
 		y = gridY * getGrid2PosMultiplyer() + getGrid2PosBias();
 	}
+	
+	public void setMoves(Integer moves) {
+		this.moves = moves;
+	}
 
 	public Integer getMoves() {
 		return moves;
