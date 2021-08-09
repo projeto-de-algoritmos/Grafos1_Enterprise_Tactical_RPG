@@ -10,13 +10,15 @@ public class Player {
 	
 	private int y;
 	private int gridY;
+	private int moves;
 	
 	
-	public Player() {
+	public Player(int moves) {
 		gridX = 5;
 		gridY = 5;
 		x = gridX * 25 + 6;
 		y = gridY * 25 + 6;
+		this.moves = moves+1; // Mais 1 porque conta a casa do Jogador conta
 	}
 	
 	public int getGridX() {
@@ -35,6 +37,10 @@ public class Player {
 	public void setGridY(int gridY) {
 		this.gridY = gridY;
 		y = gridY * 25 + 6;
+	}
+	
+	public int getMoves() {
+		return moves;
 	}
 
 	public void draw(Graphics g) {
