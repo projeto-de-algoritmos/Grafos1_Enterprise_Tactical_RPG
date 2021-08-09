@@ -6,13 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 
 import graphs.exceptions.NodeAlreadyExists;
 
 class TestGraph {
 
 	@Test
-	void testNodeInsertion() {
+	void testNodeInsertion(TestInfo testInfo) {
+		System.out.println(testInfo.getDisplayName());
 		AdjListGraph<Integer> graph = new AdjListGraph<Integer>();
 
 		assertDoesNotThrow(() -> {
@@ -31,7 +33,8 @@ class TestGraph {
 	}
 
 	@Test
-	void testNodeInsertionRepeated() {
+	void testNodeInsertionRepeated(TestInfo testInfo) {
+		System.out.println(testInfo.getDisplayName());
 		AdjListGraph<Integer> graph = new AdjListGraph<Integer>();
 
 		assertThrows(NodeAlreadyExists.class, () -> {
@@ -41,7 +44,8 @@ class TestGraph {
 	}
 
 	@Test
-	void testSimpleGraph() {
+	void testSimpleGraph(TestInfo testInfo) {
+		System.out.println(testInfo.getDisplayName());
 		AdjListGraph<Integer> graph = new AdjListGraph<Integer>();
 
 		Integer n0 = Integer.valueOf(0);
@@ -103,7 +107,8 @@ class TestGraph {
 	}
 
 	@Test
-	void traverseByBFS() {
+	void traverseByBFS(TestInfo testInfo) {
+		System.out.println(testInfo.getDisplayName());
 		AdjListGraph<Integer> graph = new AdjListGraph<Integer>();
 		AdjListGraph<Integer> tree = null;
 
@@ -143,7 +148,8 @@ class TestGraph {
 	}
 
 	@Test
-	void traverseByDFS() {
+	void traverseByDFS(TestInfo testInfo) {
+		System.out.println(testInfo.getDisplayName());
 		AdjListGraph<Integer> graph = new AdjListGraph<Integer>();
 		AdjListGraph<Integer> tree = null;
 
@@ -183,7 +189,8 @@ class TestGraph {
 	}
 
 	@Test
-	void getAnyCycleOnGraphWithInitialCycle() {
+	void getAnyCycleOnGraphWithInitialCycle(TestInfo testInfo) {
+		System.out.println(testInfo.getDisplayName());
 		AdjListGraph<Integer> graph = new AdjListGraph<Integer>();
 		AdjListGraph<Integer> tree = null;
 
@@ -220,12 +227,11 @@ class TestGraph {
 		assertNotNull(tree);
 
 		tree.printDotFile();
-		
-		fail("Still broken");
 	}
 	
 	@Test
-	void getAnyCycleOnGraphWithNoCycles() {
+	void getAnyCycleOnGraphWithNoCycles(TestInfo testInfo) {
+		System.out.println(testInfo.getDisplayName());
 		AdjListGraph<Integer> graph = new AdjListGraph<Integer>();
 		AdjListGraph<Integer> tree = null;
 
@@ -258,7 +264,8 @@ class TestGraph {
 	}
 	
 	@Test
-	void getAnyCycleOnCyclicGraph() {
+	void getAnyCycleOnCyclicGraph(TestInfo testInfo) {
+		System.out.println(testInfo.getDisplayName());
 		AdjListGraph<Integer> graph = new AdjListGraph<Integer>();
 		AdjListGraph<Integer> tree = null;
 
@@ -295,8 +302,5 @@ class TestGraph {
 
 		System.out.println("Cycle detected");
 		tree.printDotFile();
-		
-		fail("Still broken");
-
 	}
 }

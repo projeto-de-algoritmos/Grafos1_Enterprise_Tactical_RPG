@@ -103,7 +103,6 @@ public class AdjListGraph<NodeT> {
 		try {
 			tree.addNodes(getNodes());
 		} catch (GraphException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -126,7 +125,6 @@ public class AdjListGraph<NodeT> {
 							try {
 								tree.addEdge(new UndirectedEdge<NodeT>(v, w));
 							} catch (GraphException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 
@@ -152,7 +150,6 @@ public class AdjListGraph<NodeT> {
 		try {
 			tree.addNodes(getNodes());
 		} catch (GraphException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -173,7 +170,6 @@ public class AdjListGraph<NodeT> {
 					try {
 						tree.addEdge(new UndirectedEdge<NodeT>(v, w));
 					} catch (GraphException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
@@ -202,7 +198,6 @@ public class AdjListGraph<NodeT> {
 		try {
 			tree.addNodes(getNodes());
 		} catch (GraphException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -223,7 +218,6 @@ public class AdjListGraph<NodeT> {
 					try {
 						tree.addEdge(new UndirectedEdge<NodeT>(v, w));
 					} catch (GraphException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
@@ -241,6 +235,67 @@ public class AdjListGraph<NodeT> {
 		return tree;
 	}
 
+	public AdjListGraph<NodeT> dfsPath(NodeT startNode, NodeT endNode) throws GraphException {
+		if (!adj.containsKey(startNode)) {
+			throw new InexistentNode("Node " + startNode.toString() + " does not exist");
+		}
+
+		if (!adj.containsKey(endNode)) {
+			throw new InexistentNode("Node " + endNode.toString() + " does not exist");
+		}
+
+		Map<NodeT, Boolean> nodeVisited = new HashMap<NodeT, Boolean>();
+		AdjListGraph<NodeT> tree = new AdjListGraph<NodeT>();
+		Map<NodeT, NodeT> parents = new HashMap<NodeT, NodeT>();
+		Boolean foundEndNode = false;
+
+		try {
+			tree.addNodes(getNodes());
+		} catch (GraphException e) {
+			e.printStackTrace();
+		}
+
+		for (NodeT node : getNodes()) {
+			nodeVisited.put(node, false);
+		}
+
+		Stack<NodeT> nodeStack = new Stack<NodeT>();
+
+		nodeStack.push(startNode);
+		nodeVisited.put(startNode, true);
+
+		while (!nodeStack.isEmpty() && !foundEndNode) {
+			NodeT w = nodeStack.pop();
+
+			for (NodeT v : adj.get(w)) {
+				if (!nodeVisited.get(v)) {
+					nodeVisited.put(v, true);
+					nodeStack.push(v);
+
+					parents.put(v, w);
+
+					if (v.equals(endNode)) {
+						foundEndNode = true;
+						break;
+					}
+				}
+			}
+		}
+
+		if (foundEndNode) {
+			NodeT first = endNode;
+			NodeT last = parents.get(endNode);
+
+			while (!last.equals(startNode)) {
+				tree.addEdge(new UndirectedEdge<NodeT>(last, first));
+				first = last;
+				last = parents.get(last);
+			}
+		}
+
+		return tree;
+	}
+
 	public AdjListGraph<NodeT> bfs() {
 		Map<NodeT, Boolean> nodeVisited = new HashMap<NodeT, Boolean>();
 		AdjListGraph<NodeT> tree = new AdjListGraph<NodeT>();
@@ -248,7 +303,6 @@ public class AdjListGraph<NodeT> {
 		try {
 			tree.addNodes(getNodes());
 		} catch (GraphException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -271,7 +325,6 @@ public class AdjListGraph<NodeT> {
 							try {
 								tree.addEdge(new UndirectedEdge<NodeT>(v, w));
 							} catch (GraphException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 
@@ -297,7 +350,6 @@ public class AdjListGraph<NodeT> {
 		try {
 			tree.addNodes(getNodes());
 		} catch (GraphException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -318,7 +370,6 @@ public class AdjListGraph<NodeT> {
 					try {
 						tree.addEdge(new UndirectedEdge<NodeT>(v, w));
 					} catch (GraphException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
@@ -330,7 +381,7 @@ public class AdjListGraph<NodeT> {
 
 		return tree;
 	}
-	
+
 	public AdjListGraph<NodeT> bfs(NodeT startNode, NodeT endNode) throws GraphException {
 		if (!adj.containsKey(startNode)) {
 			throw new InexistentNode("Node " + startNode.toString() + " does not exist");
@@ -347,7 +398,6 @@ public class AdjListGraph<NodeT> {
 		try {
 			tree.addNodes(getNodes());
 		} catch (GraphException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -368,18 +418,78 @@ public class AdjListGraph<NodeT> {
 					try {
 						tree.addEdge(new UndirectedEdge<NodeT>(v, w));
 					} catch (GraphException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
 					nodeVisited.put(v, true);
 					nodeQueue.add(v);
-					
+
 					if (v.equals(endNode)) {
 						foundEndNode = true;
 						break;
 					}
 				}
+			}
+		}
+
+		return tree;
+	}
+
+	public AdjListGraph<NodeT> bfsPath(NodeT startNode, NodeT endNode) throws GraphException {
+		if (!adj.containsKey(startNode)) {
+			throw new InexistentNode("Node " + startNode.toString() + " does not exist");
+		}
+
+		if (!adj.containsKey(endNode)) {
+			throw new InexistentNode("Node " + endNode.toString() + " does not exist");
+		}
+
+		Map<NodeT, Boolean> nodeVisited = new HashMap<NodeT, Boolean>();
+		AdjListGraph<NodeT> tree = new AdjListGraph<NodeT>();
+		Map<NodeT, NodeT> parents = new HashMap<NodeT, NodeT>();
+		Boolean foundEndNode = false;
+
+		try {
+			tree.addNodes(getNodes());
+		} catch (GraphException e) {
+			e.printStackTrace();
+		}
+
+		for (NodeT node : getNodes()) {
+			nodeVisited.put(node, false);
+		}
+
+		Queue<NodeT> nodeQueue = new LinkedList<NodeT>();
+
+		nodeQueue.add(startNode);
+		nodeVisited.put(startNode, true);
+
+		while (!nodeQueue.isEmpty() && !foundEndNode) {
+			NodeT w = nodeQueue.remove();
+
+			for (NodeT v : adj.get(w)) {
+				if (!nodeVisited.get(v)) {
+					nodeVisited.put(v, true);
+					nodeQueue.add(v);
+
+					parents.put(v, w);
+
+					if (v.equals(endNode)) {
+						foundEndNode = true;
+						break;
+					}
+				}
+			}
+		}
+
+		if (foundEndNode) {
+			NodeT first = endNode;
+			NodeT last = parents.get(endNode);
+
+			while (!last.equals(startNode)) {
+				tree.addEdge(new UndirectedEdge<NodeT>(last, first));
+				first = last;
+				last = parents.get(last);
 			}
 		}
 
@@ -401,7 +511,6 @@ public class AdjListGraph<NodeT> {
 		try {
 			tree.addNodes(getNodes());
 		} catch (GraphException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -429,7 +538,6 @@ public class AdjListGraph<NodeT> {
 							try {
 								tree.addEdge(new UndirectedEdge<NodeT>(v, w));
 							} catch (GraphException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 
@@ -438,26 +546,19 @@ public class AdjListGraph<NodeT> {
 							nodeVisited.put(v, true);
 							nodeQueue.add(v);
 						} else if (!parents.get(w).equals(v)) {
-							System.out.println("Cycle detected!");
-							System.out.println("Found " + v + " (already visited) " + " on adjacency of " + w);
-							System.out.println(v + " has parent " + parents.get(v));
-							System.out.println(w + " has parent " + parents.get(w));
-
 							List<UndirectedEdge<NodeT>> edgesV = new ArrayList<UndirectedEdge<NodeT>>();
 							List<UndirectedEdge<NodeT>> edgesW = new ArrayList<UndirectedEdge<NodeT>>();
 							List<UndirectedEdge<NodeT>> edgesCycles = new ArrayList<UndirectedEdge<NodeT>>();
 
-							List<UndirectedEdge<NodeT>> largest = null;
-							List<UndirectedEdge<NodeT>> smallest = null;
+							List<UndirectedEdge<NodeT>> edgesVCopy = null;
+							List<UndirectedEdge<NodeT>> edgesWCopy = null;
 
-							System.out.println("DFS tree");
 							tree.printDotFile();
 
 							try {
-								edgesV = tree.bfs(firstNode, v).getEdges();
-								edgesW = tree.bfs(firstNode, w).getEdges();
+								edgesV = tree.bfsPath(firstNode, v).getEdges();
+								edgesW = tree.bfsPath(firstNode, w).getEdges();
 							} catch (GraphException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 
@@ -465,38 +566,15 @@ public class AdjListGraph<NodeT> {
 							edgesV.add(new UndirectedEdge<NodeT>(w, v));
 							edgesV.add(new UndirectedEdge<NodeT>(v, w));
 
-							System.out.println("edgesV");
-							for (UndirectedEdge<NodeT> e : edgesV) {
-								System.out.println(e.getV() + " " + e.getW());
-							}
-
-							System.out.println("edgesW");
-							for (UndirectedEdge<NodeT> e : edgesW) {
-								System.out.println(e.getV() + " " + e.getW());
-							}
-
-							if (edgesV.size() >= edgesW.size()) {
-								largest = edgesV;
-								smallest = edgesW;
-							} else {
-								largest = edgesW;
-								smallest = edgesV;
-							}
-
-							largest = new ArrayList<UndirectedEdge<NodeT>>(edgesV);
-							smallest = new ArrayList<UndirectedEdge<NodeT>>(edgesW);
+							edgesVCopy = new ArrayList<UndirectedEdge<NodeT>>(edgesV);
+							edgesWCopy = new ArrayList<UndirectedEdge<NodeT>>(edgesW);
 
 							// Remove the equal edges
-							largest.removeAll(edgesW);
-							smallest.removeAll(edgesV);
+							edgesVCopy.removeAll(edgesW);
+							edgesWCopy.removeAll(edgesV);
 
-							edgesCycles.addAll(largest);
-							edgesCycles.addAll(smallest);
-
-							System.out.println("paths xor");
-							for (UndirectedEdge<NodeT> e : edgesCycles) {
-								System.out.println(e.getV() + " " + e.getW());
-							}
+							edgesCycles.addAll(edgesVCopy);
+							edgesCycles.addAll(edgesWCopy);
 
 							AdjListGraph<NodeT> cycle = new AdjListGraph<NodeT>();
 
@@ -504,17 +582,8 @@ public class AdjListGraph<NodeT> {
 								cycle.addNodes(getNodes());
 								cycle.addEdges(edgesCycles);
 							} catch (GraphException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-
-//							System.out.println(v + " with parent " + parents.get(v) + " on " + w + " list already visited");
-//							try {
-//								tree.addEdge(new Edge<NodeT>(v, w));
-//							} catch (GraphException e) {
-//								// TODO Auto-generated catch block
-//								e.printStackTrace();
-//							}
 
 							return cycle;
 						}
