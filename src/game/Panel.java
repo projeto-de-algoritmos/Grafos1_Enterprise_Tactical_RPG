@@ -46,9 +46,9 @@ public class Panel extends JPanel implements Runnable, MouseListener, MouseMotio
 		addMouseMotionListener(this);
 
 		player = new Player(playerMoves, 5, 5, 25, 6, 14, 14, Color.BLUE);
-		enemies.add(new Enemy(enemyMoves, 10, 10, 25, 6, 10, 10, Color.RED));
-		enemies.add(new Enemy(enemyMoves, 15, 15, 25, 6, 10, 10, Color.RED));
-		enemies.add(new Enemy(enemyMoves, 10, 15, 25, 6, 10, 10, Color.RED));
+		enemies.add(new Enemy(enemyMoves, 10, 10, 25, 8, 10, 10, Color.RED));
+		enemies.add(new Enemy(enemyMoves, 15, 15, 25, 8, 10, 10, Color.RED));
+		enemies.add(new Enemy(enemyMoves, 10, 15, 25, 8, 10, 10, Color.RED));
 		grid = new GraphMatrix<Integer>(20, 20, 0, 1, -1);
 		preview = new ArrayList<Position>();
 
@@ -105,8 +105,6 @@ public class Panel extends JPanel implements Runnable, MouseListener, MouseMotio
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println("Rounds " + rounds);
 	}
 
 	@Override
@@ -219,5 +217,13 @@ public class Panel extends JPanel implements Runnable, MouseListener, MouseMotio
 
 	private int coordToGrid(int v) {
 		return (v - 1) / 25;
+	}
+	
+	public boolean getRunning() {
+		return running;
+	}
+
+	public int getScore() {
+		return rounds;
 	}
 }

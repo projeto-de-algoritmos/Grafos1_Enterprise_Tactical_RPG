@@ -1,5 +1,7 @@
 package game;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.swing.JFrame;
 
 public class Game {
@@ -8,6 +10,7 @@ public class Game {
 	
 	private JFrame frame;
 	private Panel panel;
+	private int score;
 	
 	public Game() {
 		this.setRunning(true);
@@ -21,6 +24,8 @@ public class Game {
 		frame.setLocationRelativeTo(null);
 		frame.add(panel);
 		frame.setVisible(true);
+		
+		score = 0;
 	}
 
 	public boolean isRunning() {
@@ -28,5 +33,24 @@ public class Game {
 	}
 	public void setRunning(boolean running) {
 		this.running = running;
+	}
+	public void update() {
+		try {
+			TimeUnit.MILLISECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		if (!panel.getRunning()) {
+			setRunning(false);
+			score = panel.getScore();
+		}
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public int getScore() {
+		return score;
 	}
 }
