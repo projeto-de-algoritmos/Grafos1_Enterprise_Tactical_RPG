@@ -125,7 +125,11 @@ public class Panel extends JPanel implements Runnable, MouseListener, MouseMotio
 				inPlayer = true;
 			else {
 				inPlayer = false;
+				try {
 				encontraCaminho();
+				} catch (ArrayIndexOutOfBoundsException e) {
+					
+				}
 			}
 		}
 	}
@@ -133,23 +137,24 @@ public class Panel extends JPanel implements Runnable, MouseListener, MouseMotio
 	@Override
 	public void mouseClicked(MouseEvent m) {
 		// Move o Jogador(Temporário)
-		if (preview.size() <= player.getMoves()) {
+		if (preview.size() <= player.getMoves() && !inPlayer) {
 			player.setGridX((m.getX() - 1) / 25);
 			player.setGridY((m.getY() - 1) / 25);
 			inPlayer = true;
 
 			encontraCaminhoInimigos();
-			
+
 			rounds++;
-			if (rounds % 10 == 0 && enemyMoves <= playerMoves)
+			if (rounds % 10 == 0 && enemyMoves <= 2 * playerMoves)
 				enemyMoves++;
-				for(Enemy enemy : enemies)
-					enemy.setMoves(enemyMoves);
-		}
-		
-		for (Enemy enemy : enemies) {
-			if (enemy.getGridX().equals(player.getGridX()) && enemy.getGridY().equals(player.getGridY())) {
-				stop();
+			for (Enemy enemy : enemies) {
+				enemy.setMoves(enemyMoves);
+			}
+
+			for (Enemy enemy : enemies) {
+				if (enemy.getGridX().equals(player.getGridX()) && enemy.getGridY().equals(player.getGridY())) {
+					stop();
+				}
 			}
 		}
 	}
@@ -222,7 +227,7 @@ public class Panel extends JPanel implements Runnable, MouseListener, MouseMotio
 	private int coordToGrid(int v) {
 		return (v - 1) / 25;
 	}
-	
+
 	public boolean getRunning() {
 		return running;
 	}

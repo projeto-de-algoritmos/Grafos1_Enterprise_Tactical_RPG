@@ -5,18 +5,18 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 
 public class Game {
-	
+
 	private boolean running;
-	
+
 	private JFrame frame;
 	private Panel panel;
 	private int score;
-	
+
 	public Game() {
 		this.setRunning(true);
 		frame = new JFrame();
 		panel = new Panel();
-		
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Enterprise Tactical RPG");
 		frame.pack();
@@ -24,16 +24,19 @@ public class Game {
 		frame.setLocationRelativeTo(null);
 		frame.add(panel);
 		frame.setVisible(true);
-		
+		frame.setResizable(false);
+
 		score = 0;
 	}
 
 	public boolean isRunning() {
 		return running;
 	}
+
 	public void setRunning(boolean running) {
 		this.running = running;
 	}
+
 	public void update() {
 		try {
 			TimeUnit.MILLISECONDS.sleep(1);

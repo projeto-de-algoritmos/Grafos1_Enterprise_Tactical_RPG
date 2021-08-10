@@ -7,21 +7,21 @@ public class Player {
 
 	private Integer x;
 	private Integer gridX;
-            
+
 	private Integer y;
 	private Integer gridY;
 	private Integer moves;
-            
+
 	private Integer grid2PosMultiplyer;
 	private Integer grid2PosBias;
-            
+
 	private Integer width;
 	private Integer height;
 
 	private Color color;
 
-	public Player(Integer moves, Integer initialGridX, Integer initialGridY, Integer grid2PosMultiplyer, Integer grid2PosBias, Integer height,
-			Integer width, Color color) {
+	public Player(Integer moves, Integer initialGridX, Integer initialGridY, Integer grid2PosMultiplyer,
+			Integer grid2PosBias, Integer height, Integer width, Color color) {
 		// Mais 1 porque conta a casa do Jogador conta
 		this.moves = moves + 1;
 		this.grid2PosBias = grid2PosBias;
@@ -50,7 +50,7 @@ public class Player {
 		this.gridY = gridY;
 		y = gridY * getGrid2PosMultiplyer() + getGrid2PosBias();
 	}
-	
+
 	public void setMoves(Integer moves) {
 		this.moves = moves;
 	}

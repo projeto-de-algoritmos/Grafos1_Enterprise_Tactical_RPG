@@ -2,16 +2,13 @@ package game;
 
 import java.util.concurrent.TimeUnit;
 
-import game.Menu;
-import game.Game;
-
 public class Main {
 	public Main() {
 		boolean restart = true;
-		
-		//Menu
+
+		// Menu
 		Menu menu = new Menu();
-		while(!menu.isStarted()) {
+		while (!menu.isStarted()) {
 			try {
 				TimeUnit.MILLISECONDS.sleep(1);
 			} catch (InterruptedException e) {
@@ -20,20 +17,20 @@ public class Main {
 		}
 		// Remove o menu
 		menu.getFrame().dispose();
-		
+
 		// Loop de Restart
-		while(restart) {	
+		while (restart) {
 			// Jogo
 			Game game = new Game();
-			while(game.isRunning()) {
+			while (game.isRunning()) {
 				game.update();
 			}
 			int score = game.getScore();
 			game.getFrame().dispose();
-			
+
 			// Tela de Gameover
 			Gameover gameover = new Gameover(score);
-			while(!gameover.isClosed()){
+			while (!gameover.isClosed()) {
 				try {
 					TimeUnit.MILLISECONDS.sleep(1);
 				} catch (InterruptedException e) {
@@ -44,6 +41,7 @@ public class Main {
 			gameover.getFrame().dispose();
 		}
 	}
+
 	public static void main(String[] args) {
 		new Main();
 	}
